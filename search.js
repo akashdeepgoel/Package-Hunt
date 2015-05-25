@@ -1,7 +1,6 @@
 //File that will Search the Web(Github) and return the correct results
 var cheerio = require('cheerio');
 var request = require('request');
-//var yolo = require('./display.js');
 
 module.exports = Search;
 
@@ -20,7 +19,7 @@ Search.prototype.run = function() {
 		{
 			//console.log("Value hagi hai "+this.requirements[k]);
 			var fire = "https://api.github.com/search/repositories?q="+this.requirements[k]+"+language:"+this.codelang;
-			console.log("URL AAPNE "+fire);
+			//console.log("URL AAPNE "+fire);
 			var options = {
          	url: fire,
          	method: 'GET',
