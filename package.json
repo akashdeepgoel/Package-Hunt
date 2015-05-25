@@ -1,0 +1,26 @@
+{
+  "name": "packagehunt",
+  "version": "1.0.0",
+  "description": "A simple NodeJS application to search for the packages/libraries that you might require in your applications.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/akashdeepgoel/Package-Hunt"
+  },
+  "keywords": [
+    "library search",
+    "search",
+    "package",
+    "finder",
+    "searcher"
+  ],
+  "author": "Akashdeep Goel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akashdeepgoel/Package-Hunt/issues"
+  },
+  "homepage": "https://github.com/akashdeepgoel/Package-Hunt"
+}
