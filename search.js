@@ -25,7 +25,7 @@ Search.prototype.run = function() {
          	method: 'GET',
          	json: true,
          	headers: {
-    			'User-Agent': 'akashdeepgoel'
+    			'User-Agent': 'chrome'
   			}
          	};
 			request(options, function(err, resp, body) {
