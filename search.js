@@ -38,8 +38,15 @@ Search.prototype.run = function() {
        			var result = body;
        			//console.log(result.items[0].full_name);
        			setTimeout(function(){
-       			output[track++]=result.items[0].full_name;
-       			output[track++]=result.items[1].full_name;
+       			if(result.items[0])
+       			{
+       				output[track++]=result.items[0].full_name;
+       			}
+       			if(result.items[1])
+       			{
+       				output[track++]=result.items[1].full_name;
+       			}		
+       			
        		},5000);
        		}
    			});
@@ -72,7 +79,7 @@ Search.prototype.run = function() {
 		{
 			//console.log("Value hagi hai "+this.requirements[k]);
 			var fire = "https://api.github.com/search/repositories?q="+this.requirements[k]+"+language:"+this.codelang;
-			console.log("URL AAPNE "+fire);
+			//console.log("URL AAPNE "+fire);
 			var options = {
          	url: fire,
          	method: 'GET',
@@ -96,7 +103,7 @@ Search.prototype.run = function() {
        				var it=0;
        				while(done<3&&it<=upto)
        				{
-       					if(result.items[it].stargazers_count>=count)
+       					if(result.items[it].stargazers_count>=count&&result.items[it])
        					{
        						done++;
        						output[track++]=result.items[it].full_name;
