@@ -1,6 +1,6 @@
 {
   "name": "packagehunt",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple NodeJS application to search for the packages/libraries that you might require in your applications.",
   "main": "index.js",
   "scripts": {
