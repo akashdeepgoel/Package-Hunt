@@ -1,6 +1,6 @@
 {
   "name": "packagehunt",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A simple NodeJS application to search for the packages/libraries that you might require in your applications.",
   "main": "index.js",
   "scripts": {
@@ -11,6 +11,15 @@
     "type": "git",
     "url": "https://github.com/akashdeepgoel/Package-Hunt"
   },
+  "author": {
+    "name": "Akashdeep Goel",
+    "email": "akashdeep.goel1996@gmail.com",
+    "url": "https://github.com/akashdeepgoel/akashdeepgoel.github.io"
+  },
+  "files": [
+    "index.js",
+    "search.js",
+  ],
   "keywords": [
     "library search",
     "search",
@@ -18,6 +27,10 @@
     "finder",
     "searcher"
   ],
+  "dependencies": {
+    "request": "^2.55.0",
+    "prompt": "^0.2.14"
+  },
   "author": "Akashdeep Goel",
   "license": "ISC",
   "bugs": {
