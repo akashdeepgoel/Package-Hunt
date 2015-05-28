@@ -17,9 +17,7 @@ Search.prototype.run = function() {
 		var track = 0;
 		for(var k = 0;k<=num;k++)
 		{
-			//console.log("Value hagi hai "+this.requirements[k]);
 			var fire = "https://api.github.com/search/repositories?q="+this.requirements[k]+"+language:"+this.codelang;
-			//console.log("URL AAPNE "+fire);
 			var options = {
          	url: fire,
          	method: 'GET',
@@ -36,7 +34,6 @@ Search.prototype.run = function() {
        		else
        		{
        			var result = body;
-       			//console.log(result.items[0].full_name);
        			setTimeout(function(){
        			if(result.items[0])
        			{
@@ -77,9 +74,7 @@ Search.prototype.run = function() {
 		var track = 0;
 		for(var k = 0;k<=num;k++)
 		{
-			//console.log("Value hagi hai "+this.requirements[k]);
 			var fire = "https://api.github.com/search/repositories?q="+this.requirements[k]+"+language:"+this.codelang;
-			//console.log("URL AAPNE "+fire);
 			var options = {
          	url: fire,
          	method: 'GET',
@@ -96,7 +91,6 @@ Search.prototype.run = function() {
        		else
        		{
        			var result = body;
-       			//console.log(result.items[0].full_name);
        			setTimeout(function(){
        				var done=0;
        				var upto = result.items.length-1;
