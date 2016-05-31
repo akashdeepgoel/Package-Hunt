@@ -21,8 +21,8 @@ To obtain the latest version, follow the following steps-
 
 Usage
 -------
-If you have downloaded via npm, simply type ``` packagehunt``` in terminal.\
-Otherwise, type ``` node index.js```
+If you have downloaded via npm, simply type ``` packagehunt``` in terminal or use ``` node index.js ```.
+
 
 Screenshots
 -------
