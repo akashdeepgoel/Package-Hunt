@@ -10,12 +10,15 @@ function Search(requirements, response,codelang) {
 	this.codelang = codelang;
 };
 var output={};
+
 Search.prototype.run = function() {
 	if (this.response=="N") 
 	{
 		var num = this.requirements.length-1;
 		var track = 0;
+		var flag = 0;
 		var k = 0;
+		var requestCount = 0;
 		for(k = 0;k<=num;k++)
 		{
 			var fire = "https://api.github.com/search/repositories?q=in:"+this.requirements[k]+"+language:"+this.codelang;
@@ -37,18 +40,18 @@ Search.prototype.run = function() {
 				{
 					output[track++]=result.items[1].full_name;
 				}
-				setTimeout(function(){
-					complete();
-				},3000);
+				requestCount++;
+				complete(requestCount);
+				
 			})
 			.catch(function(err){
 				console.log("Error Fetching Results! Please try again");
 			});
 		}
 
-		function complete()
+		function complete(check)
 		{
-			if(k==num+1)
+			if(check==num+1)
 			{
 				if(track==0)
 				{
@@ -75,9 +78,10 @@ Search.prototype.run = function() {
 		var count = this.response;
 		var num = this.requirements.length-1;
 		var track = 0;
+		var requestCounter = 0;
 		for(var k = 0;k<=num;k++)
 		{
-			var fire = "https://api.github.com/search/repositories?q="+this.requirements[k]+"+language:"+this.codelang;
+			var fire = "https://api.github.com/search/repositories?q=in:"+this.requirements[k]+"+language:"+this.codelang;
 			var options = {
 				url: fire,
 				method: 'GET',
@@ -100,18 +104,17 @@ Search.prototype.run = function() {
 				}
 				it++;
 			}
-			setTimeout(function(){
-				completeProcess();
-			},3000);
+			requestCounter++;
+			completeProcess(requestCounter);
    			})
    			.catch(function(err){
 				console.log("Error Fetching Results! Please try again");
 			});
 		}
 
-		function completeProcess()
+		function completeProcess(check)
 		{
-			if(k==num+1)
+			if(check==num+1)
 			{
 				if(track==0)
 				{
@@ -122,14 +125,14 @@ Search.prototype.run = function() {
 				{
 					console.log("Hooray!! I have your results ready!!\n");
 					setTimeout(function(){
-					for(var it = 0;it<track;it++)
-					{
-						console.log("["+(it+1)+"]"+" "+ output[it]+"\n");
-					}
+						for(var it = 0;it<track;it++)
+						{
+							console.log("["+(it+1)+"]"+" "+ output[it]+"\n");
+						}
+                	},3000);                 
+                }             
+            }        
 
-				},3000);
-				}
-			}
-		}
-	}
+		}     
+	} 
 };
