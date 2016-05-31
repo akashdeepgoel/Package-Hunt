@@ -8,7 +8,7 @@ Install
 --------
 A stable version can be downloaded directly using npm:
 ```
-npm install package-hunt
+npm install packagehunt
 ```
 
 
