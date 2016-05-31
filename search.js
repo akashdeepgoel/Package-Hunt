@@ -1,6 +1,6 @@
 //File that will Search the Web(Github) and return the correct results
 var cheerio = require('cheerio');
-var request = require('request');
+var request = require('request-promise');
 
 module.exports = Search;
 
@@ -15,57 +15,60 @@ Search.prototype.run = function() {
 	{
 		var num = this.requirements.length-1;
 		var track = 0;
-		for(var k = 0;k<=num;k++)
+		var k = 0;
+		for(k = 0;k<=num;k++)
 		{
-			var fire = "https://api.github.com/search/repositories?q="+this.requirements[k]+"+language:"+this.codelang;
+			var fire = "https://api.github.com/search/repositories?q=in:"+this.requirements[k]+"+language:"+this.codelang;
 			var options = {
-         	url: fire,
-         	method: 'GET',
-         	json: true,
-         	headers: {
-    			'User-Agent': 'chrome'
-  			}
-         	};
-			request(options, function(err, resp, body) {
-        	if (err)
-        	{
-           		throw err;
-       		}
-       		else
-       		{
-       			var result = body;
-       			setTimeout(function(){
-       			if(result.items[0])
-       			{
-       				output[track++]=result.items[0].full_name;
-       			}
-       			if(result.items[1])
-       			{
-       				output[track++]=result.items[1].full_name;
-       			}		
-       			
-       		},5000);
-       		}
-   			});
-		}
-		setTimeout(function(){
-			if(track==0)
-			{
-				console.log("Sorry Dev...I couldn't find anything satisfying you..:p\n");
-
-			}
-			else
-			{
-				console.log("Hooray!! I have your results ready!!\n");
-				setTimeout(function(){
-				for(var it = 0;it<track;it++)
+				url: fire,
+				method: 'GET',
+				json: true,
+				headers: {
+					'User-Agent': 'chrome'
+					}
+			};
+			request(options).then(function(body) {
+				var result = body;
+				if(result.items[0])
 				{
-					console.log("["+(it+1)+"]"+" "+ output[it]+"\n");
+					output[track++]=result.items[0].full_name;
 				}
+				if(result.items[1])
+				{
+					output[track++]=result.items[1].full_name;
+				}
+				setTimeout(function(){
+					complete();
+				},3000);
+			})
+			.catch(function(err){
+				console.log("Error Fetching Results! Please try again");
+			});
+		}
 
-			},3000);
+		function complete()
+		{
+			if(k==num+1)
+			{
+				if(track==0)
+				{
+					console.log("Sorry Dev...I couldn't find anything satisfying you..:p\n");
+
+				}
+				else
+				{
+					console.log("Hooray!! I have your results ready!!\n");
+					setTimeout(function(){
+					for(var it = 0;it<track;it++)
+					{
+						console.log("["+(it+1)+"]"+" "+ output[it]+"\n");
+					}
+
+					},3000);
+				}				
 			}
-		},10000);
+
+		}
 	} 
 	else 	
 	{
@@ -76,56 +79,57 @@ Search.prototype.run = function() {
 		{
 			var fire = "https://api.github.com/search/repositories?q="+this.requirements[k]+"+language:"+this.codelang;
 			var options = {
-         	url: fire,
-         	method: 'GET',
-         	json: true,
-         	headers: {
-    			'User-Agent': 'akashdeepgoel'
-  			}
-         	};
-			request(options, function(err, resp, body) {
-        	if (err)
-        	{
-           		throw err;
-       		}
-       		else
-       		{
-       			var result = body;
-       			setTimeout(function(){
-       				var done=0;
-       				var upto = result.items.length-1;
-       				var it=0;
-       				while(done<3&&it<=upto)
-       				{
-       					if(result.items[it].stargazers_count>=count&&result.items[it])
-       					{
-       						done++;
-       						output[track++]=result.items[it].full_name;
-       					}
-       					it++;
-       				}
-
-       		},5000);
-       		}
-   			});
-		}
-		setTimeout(function(){
-			if(track==0)
-			{
-				console.log("Sorry Dev...I couldn't find anything satisfying you..:p\n");
-
-			}
-			else
-			{
-				console.log("Hooray!! I have your results ready!!\n");
-				setTimeout(function(){
-				for(var it = 0;it<track;it++)
-				{
-					console.log("["+(it+1)+"]"+" "+ output[it]+"\n");
+				url: fire,
+				method: 'GET',
+				json: true,
+				headers: {
+				'User-Agent': 'akashdeepgoel'
 				}
-
-			},3000);
+         	};
+			request(options).then(function(body) {
+			var result = body;
+			var done=0;
+			var upto = result.items.length-1;
+			var it=0;
+			while(done<3&&it<=upto)
+			{
+				if(result.items[it].stargazers_count>=count&&result.items[it])
+				{
+					done++;
+					output[track++]=result.items[it].full_name;
+				}
+				it++;
 			}
-		},10000);
+			setTimeout(function(){
+				completeProcess();
+			},3000);
+   			})
+   			.catch(function(err){
+				console.log("Error Fetching Results! Please try again");
+			});
+		}
+
+		function completeProcess()
+		{
+			if(k==num+1)
+			{
+				if(track==0)
+				{
+					console.log("Sorry Dev...I couldn't find anything satisfying you..:p\n");
+
+				}
+				else
+				{
+					console.log("Hooray!! I have your results ready!!\n");
+					setTimeout(function(){
+					for(var it = 0;it<track;it++)
+					{
+						console.log("["+(it+1)+"]"+" "+ output[it]+"\n");
+					}
+
+				},3000);
+				}
+			}
+		}
 	}
 };
